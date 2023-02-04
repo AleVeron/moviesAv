@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import Swal from '@sweetalert/with-react'
+import Swal from "sweetalert2";
 
 
 export default function List(prop) {
@@ -30,11 +30,21 @@ export default function List(prop) {
         if (!movieInLcstg) {
             tempFavMovies.push(movieData)
             localStorage.setItem('favs', JSON.stringify(tempFavMovies))
-            Swal("❤ "+movieData.title+" has been added to favs movies");
+            Swal.fire({
+                title: 'Exito!',
+                text: ("❤ "+movieData.title+" has been added to favs movies"),
+                icon: 'success',
+                confirmButtonText: 'Cool'
+              })
         } else {
             let moviesLeft = tempFavMovies.filter(i => i.id !== movieData.id)
             localStorage.setItem('favs', JSON.stringify(moviesLeft))
-            Swal("💔 " + movieData.title+" has been removed from your favorites");
+            Swal.fire({
+                title: 'Error!',
+                text: ("💔 " + movieData.title+" has been removed from your favorites"),
+                icon: 'error',
+                confirmButtonText: 'Cool'
+              })
         }
 
     } 
